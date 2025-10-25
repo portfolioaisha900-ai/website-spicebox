@@ -127,7 +127,7 @@
     animation-duration: 30s;
   }
 
-  /* Middle left high - Leaf (Nature/Growth) */
+  /* Middle left high - Light bulb (Ideas/Innovation) */
   .floating-element:nth-child(3) {
     top: 30%;
     left: 5%;
@@ -154,7 +154,7 @@
     animation-duration: 26s;
   }
 
-  /* Middle right low - Flower (Beauty/Culture) */
+  /* Middle right low - (This was flower, now empty slot becomes element 6) */
   .floating-element:nth-child(6) {
     top: 68%;
     right: 10%;
@@ -163,7 +163,7 @@
     animation-duration: 28s;
   }
 
-  /* Bottom left - Light bulb (Ideas) */
+  /* Bottom left - Leaf (Nature/Growth) */
   .floating-element:nth-child(7) {
     top: 88%;
     left: 12%;
@@ -590,20 +590,19 @@
     }
 
     .floating-element {
-      opacity: 0.1;
+      opacity: 0.08;
       font-size: 50px;
     }
 
     /* Reposition for mobile to avoid center and maintain spacing */
     .floating-element:nth-child(1) { top: 5%; left: 5%; }
     .floating-element:nth-child(2) { top: 8%; right: 8%; }
-    .floating-element:nth-child(3) { top: 25%; left: 3%; }
+    .floating-element:nth-child(3) { top: 25%; left: 3%; } /* Light bulb */
     .floating-element:nth-child(4) { top: 28%; right: 5%; }
     .floating-element:nth-child(5) { top: 68%; left: 5%; }
     .floating-element:nth-child(6) { top: 70%; right: 8%; }
-    .floating-element:nth-child(7) { top: 88%; left: 8%; }
+    .floating-element:nth-child(7) { top: 88%; left: 8%; } /* Leaf */
     .floating-element:nth-child(8) { top: 90%; right: 10%; }
-    .floating-element:nth-child(9) { top: 48%; right: 3%; }
   }
 
   @media (max-width: 600px){
@@ -665,10 +664,7 @@
       font-size: 45px;
     }
 
-    /* Hide just a couple elements on very small screens */
-    .floating-element:nth-child(9) {
-      display: none;
-    }
+    /* All elements visible on very small screens since we only have 8 */
   }
 </style>
 </head>
@@ -680,7 +676,6 @@
     <div class="floating-element">🍃</div>
     <div class="floating-element">✍️</div>
     <div class="floating-element">⭐</div>
-    <div class="floating-element">🌺</div>
     <div class="floating-element">💡</div>
     <div class="floating-element">🎨</div>
     <div class="floating-element">💻</div>
@@ -819,7 +814,7 @@
           </filter>
         </defs>
 
-        <circle cx="500" cy="500" r="415" fill="url(#outerRim)" stroke="rgba(0,0,0,0.06)" stroke-width="1.2"/>
+        <circle cx="500" cy="500" r="430" fill="url(#outerRim)" stroke="rgba(0,0,0,0.06)" stroke-width="1.2"/>
         <circle cx="500" cy="500" r="380" fill="url(#bedGrad)"/>
         <g id="cupsLayer"></g>
 
