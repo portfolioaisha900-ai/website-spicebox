@@ -1,396 +1,1039 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Masala Dan — Clean Circular Masala Box</title>
+<title>Masala Dan — Interactive Spice Box</title>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 <style>
-  /* Reset + base */
+  :root{
+    --bg1: #f6e6cf;
+    --bg2: #e3c79b;
+    --label: #4b2e0f;
+    --content-bg: #faf7f0;
+  }
+
   * { box-sizing: border-box; }
-  html,body { height: 100%; }
-  body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
+  
+  html,body{height:100%;margin:0;overflow-x:hidden;}
+  body{
+    background: radial-gradient(circle at 35% 25%, var(--bg1), var(--bg2));
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    position: relative;
+  }
+
+  /* Main Container */
+  .main-container {
     min-height: 100vh;
-    background: radial-gradient(circle at center, #f6ead0 0%, #e6cda0 70%);
-    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    color: #6b3f09;
-  }
-
-  /* Title */
-  .title {
-    margin-top: 36px;
-    text-align: center;
-  }
-  .title h1 {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 36px;
-    color: #8b4b00;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-  .title h1::before,.title h1::after { content: "🌶️"; margin: 0 10px; font-size: 20px; vertical-align: middle; }
-  .title p { margin: 6px 0 20px; color: #7a4f18; font-style: italic; }
-
-  /* Masala box wrapper */
-  .masala-wrap {
-    width: 560px;             /* overall control - change to scale size */
-    max-width: calc(100% - 40px);
-    aspect-ratio: 1 / 1;
-    position: relative;
-    display: grid;
-    place-items: center;
-  }
-
-  /* Outer ring */
-  .masala {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    position: relative;
-    /* Outer gold rim with subtle texture */
-    background: radial-gradient(circle at 30% 25%, #e8c67a 0%, #c18f2b 50%, #a56f1a 100%);
-    box-shadow:
-      0 16px 30px rgba(0,0,0,0.25),
-      inset 0 18px 30px rgba(255,255,255,0.12),
-      inset 0 -18px 30px rgba(0,0,0,0.18);
-    display: grid;
-    place-items: center;
-  }
-
-  /* Inner lip (raised rim) */
-  .masala::before {
-    content: "";
-    position: absolute;
-    inset: 28px; /* thickness of outer rim */
-    border-radius: 50%;
-    background: transparent;
-    box-shadow:
-      inset 0 10px 12px rgba(255,255,255,0.18),
-      inset 0 -8px 10px rgba(0,0,0,0.18);
-    pointer-events: none;
-  }
-
-  /* Inner ring where spice cups sit */
-  .inner-ring {
-    --ring-size: calc(100% - 64px); /* inside space for cups */
-    width: var(--ring-size);
-    height: var(--ring-size);
-    border-radius: 50%;
-    position: relative;
-    display: block;
-    background:
-      radial-gradient(circle at 40% 30%, rgba(255,255,255,0.12), transparent 25%),
-      linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.04));
-    box-shadow:
-      inset 0 10px 20px rgba(255,255,255,0.06),
-      inset 0 -10px 30px rgba(0,0,0,0.12);
-  }
-
-  /* center cup */
-  .center {
-    --size: 160px;
-    width: var(--size);
-    height: var(--size);
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    background: radial-gradient(circle at 30% 25%, #f7e2a4 0%, #d3a24a 55%, #b7821e 100%);
-    box-shadow:
-      inset 0 8px 18px rgba(255,255,255,0.45),
-      inset 0 -8px 20px rgba(0,0,0,0.18),
-      0 8px 20px rgba(0,0,0,0.2);
-    display: grid;
-    place-items: center;
-    color: #6b3f09;
-    font-weight: 700;
-    font-size: 18px;
-    text-align: center;
-  }
-
-  /* SPICES: evenly distributed around center using CSS vars */
-  .spice-list {
-    /* how many items are placed around the ring */
-    --count: 9;
-    --radius: 190px; /* distance from center to the center of each cup; tweak to match exact ring */
-    --angle: calc(360deg / var(--count));
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    inset: 0;
-    pointer-events: none; /* let each .spice handle pointer-events only */
-  }
-
-  .spice {
-    --cup-size: 96px; /* diameter of each spice cup */
-    width: var(--cup-size);
-    height: var(--cup-size);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform-origin: 0 0; /* we'll rotate around center then translateX outward */
-    border-radius: 50%;
-    pointer-events: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    color: #fff;
-    font-size: 0.92rem;
-    line-height: 1;
-    text-align: center;
-    padding: 8px;
-    cursor: pointer;
-    transition: transform 220ms ease, box-shadow 220ms ease;
-    /* realistic cup look: thin rim + inner recessed area */
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.06));
-    box-shadow:
-      inset 0 6px 12px rgba(255,255,255,0.42),
-      inset 0 -6px 12px rgba(0,0,0,0.25),
-      0 8px 18px rgba(0,0,0,0.25);
-    border: 6px solid rgba(0,0,0,0.06);
+    padding: 18px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
-  /* Slightly thicker golden rim on the cup (outer ring) */
-  .spice::before{
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    padding: 6px;
-    -webkit-mask:
-      radial-gradient(farthest-side, transparent calc(100% - 6px), black calc(100% - 6px));
-    mask:
-      radial-gradient(farthest-side, transparent calc(100% - 6px), black calc(100% - 6px));
-    background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(0,0,0,0.12));
+  .page-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .main-title {
+    font-size: 3.5rem;
+    color: #8b5a2b;
+    margin: 0 0 10px 0;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .main-subtitle {
+    font-size: 1.3rem;
+    color: #6b4423;
+    margin: 0;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .main-container.hidden {
+    opacity: 0;
+    transform: scale(0.95);
     pointer-events: none;
   }
 
-  /* A slightly inset content area to mimic look in the image */
-  .spice .inner {
-    width: calc(100% - 20px);
-    height: calc(100% - 20px);
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    padding: 6px;
-    box-shadow:
-      inset 0 6px 14px rgba(255,255,255,0.18),
-      inset 0 -6px 14px rgba(0,0,0,0.18);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
-  }
+  .wrap{ width: min(88vmin, 980px); }
+  svg{ width:100%; height:auto; display:block; }
 
-  /* Colors for each cup inner area (accurate pastel palette) */
-  .spice.language .inner { background: linear-gradient(180deg,#82b9c6,#4da5b6); color: #fff; }
-  .spice.knitting .inner { background: linear-gradient(180deg,#e59a87,#d26e5f); color: #fff; }
-  .spice.dad .inner { background: linear-gradient(180deg,#e0b763,#c99b3b); color:#3e2a08; }
-  .spice.research .inner { background: linear-gradient(180deg,#88b6c9,#5f9fb6); color:#fff; }
-  .spice.creative .inner { background: linear-gradient(180deg,#f0a68f,#e27f67); color:#fff; }
-  .spice.summer .inner { background: linear-gradient(180deg,#f0c86f,#d6a93d); color:#3e2a08; }
-  .spice.community .inner { background: linear-gradient(180deg,#9fb857,#7fa23f); color:#153008; }
-  .spice.robotics .inner { background: linear-gradient(180deg,#cbdc9a,#9fb25f); color:#153008; }
-  .spice.family .inner { background: linear-gradient(180deg,#e79a80,#d26e5f); color:#fff; }
+  text{ fill: var(--label); font-weight:700; text-anchor:middle; dominant-baseline:middle; pointer-events:none; }
 
-  /* Positioning: set --i for each child using nth-child */
-  /* nth-child(1) .. nth-child(9) correspond to the order in DOM */
-  .spice:nth-child(1)  { --i: 0;  }  /* at 0deg */
-  .spice:nth-child(2)  { --i: 1;  }
-  .spice:nth-child(3)  { --i: 2;  }
-  .spice:nth-child(4)  { --i: 3;  }
-  .spice:nth-child(5)  { --i: 4;  }
-  .spice:nth-child(6)  { --i: 5;  }
-  .spice:nth-child(7)  { --i: 6;  }
-  .spice:nth-child(8)  { --i: 7;  }
-  .spice:nth-child(9)  { --i: 8;  }
-
-  /* rotate by angle * i, then translate outward by radius, then center the cup (move back by half width/height) */
-  .spice {
-    transform:
-      rotate(calc(var(--angle) * var(--i)))
-      translateX(var(--radius))
-      translate(-50%, -50%) /* center the translated cup */
-      rotate(calc(-1 * var(--angle) * var(--i)));
-  }
-
-  /* Hover/active effects */
-  .spice:hover { transform: translate(-50%,-50%) scale(1.08) rotate(0deg); /* small popout */ }
-
-  /* Popup card */
-  .content-popup {
-    --w: 300px;
-    width: var(--w);
-    max-width: calc(100% - 40px);
-    padding: 20px;
-    background: linear-gradient(180deg,#fffefc,#fbf6e8);
-    border-radius: 16px;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.28);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%) scale(0.96);
-    opacity: 0;
-    transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 200ms;
-    z-index: 40;
-    text-align: left;
-    color: #5c3c0d;
-  }
-  .content-popup.show {
-    transform: translate(-50%,-50%) scale(1);
-    opacity: 1;
-  }
-  .content-popup h2 { margin: 0 0 8px; font-size: 20px; color:#6b3f09; }
-  .content-popup p { margin: 0; font-size: 14px; line-height: 1.35; color: #5b3b0a; }
-
-  .close-btn {
-    position: absolute;
-    right: 12px;
-    top: 10px;
-    font-size: 16px;
-    background: transparent;
-    border: none;
+  /* Hover: gentle pop without movement */
+  .cup-hit {
     cursor: pointer;
-    color: #7a5b3a;
+    will-change: filter;
+    transition: filter 320ms ease;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+  }
+  .cup-hit:hover {
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.22)) brightness(1.03);
   }
 
-  /* small screens */
-  @media (max-width: 720px) {
-    .masala-wrap { width: 420px; }
-    .spice { --cup-size: 80px; }
-    .center { --size: 120px; }
-    .spice-list { --radius: 140px; }
+  /* subtle inner glow on hover */
+  .inner-glow { transition: opacity 320ms ease; opacity:0; pointer-events:none; }
+  .cup-hit:hover .inner-glow { opacity: 0.18; }
+
+  /* responsive label sizing */
+  .cup-label { font-size: 1rem; }
+  .center-label { font-size: 1.25rem; }
+  .cup-icon { pointer-events: none; }
+
+  /* Content Page Styles */
+  .content-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--content-bg);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  @media (max-width: 420px) {
-    .title h1 { font-size: 22px; }
-    .masala-wrap { width: 320px; }
-    .spice-list { --radius: 110px; }
-    .spice { --cup-size: 64px; font-size: 0.78rem; }
-    .center { --size: 92px; font-size: 14px; }
+
+  .content-page.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .content-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 30px 60px;
+    animation: slideUp 0.6s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Back Button - now a mini masala dabba */
+  .back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(75, 46, 15, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    padding: 8px;
+  }
+
+  .back-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .back-btn svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mini-dabba-cup {
+    cursor: pointer;
+  }
+
+  /* Content Header */
+  .content-header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  .content-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .content-title {
+    font-size: 3rem;
+    color: var(--label);
+    margin: 0 0 15px 0;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .content-subtitle {
+    font-size: 1.2rem;
+    color: #8f6124;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* Content Body */
+  .content-body {
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .content-body h2 {
+    color: var(--label);
+    font-size: 2rem;
+    margin: 40px 0 20px 0;
+    font-weight: 700;
+  }
+
+  .content-body h2:first-child {
+    margin-top: 0;
+  }
+
+  .content-body p {
+    margin: 0 0 20px 0;
+    font-size: 1.1rem;
+  }
+
+  .content-body ul, .content-body ol {
+    margin: 20px 0;
+    padding-left: 30px;
+  }
+
+  .content-body li {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
+    border-left: 4px solid #d0a64b;
+    padding: 25px;
+    margin: 30px 0;
+    border-radius: 8px;
+  }
+
+  .highlight-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Grid for features/items */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+  }
+
+  .feature-card {
+    background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  }
+
+  .feature-card h3 {
+    color: var(--label);
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+  }
+
+  .feature-card p {
+    margin: 0;
+    font-size: 1rem;
+    color: #666;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .content-inner {
+      padding: 70px 20px 40px;
+    }
+
+    .main-title {
+      font-size: 2.5rem;
+    }
+
+    .main-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .content-body {
+      padding: 30px 25px;
+      border-radius: 15px;
+    }
+
+    .content-title {
+      font-size: 2.2rem;
+    }
+
+    .content-icon {
+      font-size: 3rem;
+    }
+
+    .content-subtitle {
+      font-size: 1rem;
+    }
+
+    .content-body h2 {
+      font-size: 1.6rem;
+    }
+
+    .content-body p, .content-body li {
+      font-size: 1rem;
+    }
+
+    .back-btn {
+      width: 60px;
+      height: 60px;
+      top: 15px;
+      left: 15px;
+      padding: 6px;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 600px){
+    .cup-label { font-size: .82rem; }
+    .center-label { font-size: 1rem; }
+    .cup-icon { font-size: 14; }
+  }
+
+  @media (max-width: 480px) {
+    .content-title {
+      font-size: 1.8rem;
+    }
+
+    .content-icon {
+      font-size: 2.5rem;
+    }
+
+    .content-body {
+      padding: 25px 20px;
+    }
+
+    .content-body h2 {
+      font-size: 1.4rem;
+    }
+
+    .main-title {
+      font-size: 2rem;
+    }
+
+    .main-subtitle {
+      font-size: 1rem;
+    }
   }
 </style>
 </head>
 <body>
-  <div class="title">
-    <h1>Masala Dan</h1>
-    <p>Click on each spice to explore its flavor</p>
-  </div>
+  <!-- Main Masala Dabba Container -->
+  <div class="main-container" id="mainContainer">
+    <div class="page-header">
+      <h1 class="main-title">🌶️ My Masaala Box 🌶️</h1>
+      <p class="main-subtitle">Click on each spice to explore</p>
+    </div>
+    <div class="wrap" role="img" aria-label="Masala Dabba with icons and raised rims">
+      <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+        <defs>
+          <!-- Spice Texture Pattern for Family -->
+          <pattern id="spiceTextureRed" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="spice-texture-red.png" x="0" y="0" width="1000" height="1000" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
 
-  <div class="masala-wrap">
-    <div class="masala" aria-hidden="false">
-      <div class="inner-ring" role="list">
-        <div class="center">Home</div>
+          <!-- Outer rim gradient (polished brass outer ring) -->
+          <radialGradient id="outerRim" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#fffef8"/>
+            <stop offset="30%" stop-color="#f0e0b0"/>
+            <stop offset="70%" stop-color="#d4b870"/>
+            <stop offset="100%" stop-color="#b89850"/>
+          </radialGradient>
 
-        <!-- Spice list: 9 items around the ring -->
-        <div class="spice-list" aria-hidden="false">
-          <div class="spice language" role="listitem" data-label="Language">
-            <div class="inner">Language</div>
-          </div>
+          <!-- Main bed gradient -->
+          <radialGradient id="bedGrad" cx="55%" cy="35%">
+            <stop offset="0%" stop-color="#d8bc80"/>
+            <stop offset="50%" stop-color="#c0a060"/>
+            <stop offset="100%" stop-color="#987840"/>
+          </radialGradient>
 
-          <div class="spice knitting" role="listitem" data-label="Knitting">
-            <div class="inner">Knitting</div>
-          </div>
+          <!-- Subtle rim inner shadow (thin dark line) -->
+          <radialGradient id="rimInnerEdge" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="rgba(80, 50, 20, 0.6)" />
+            <stop offset="50%" stop-color="rgba(80, 50, 20, 0.4)" />
+            <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+          </radialGradient>
 
-          <div class="spice dad" role="listitem" data-label="Dad">
-            <div class="inner">Dad</div>
-          </div>
+          <!-- Well depth gradient shadow -->
+          <radialGradient id="wellDepthGradient" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+            <stop offset="40%" stop-color="rgba(60, 40, 15, 0.15)" />
+            <stop offset="70%" stop-color="rgba(50, 35, 12, 0.35)" />
+            <stop offset="100%" stop-color="rgba(40, 30, 10, 0.55)" />
+          </radialGradient>
 
-          <div class="spice research" role="listitem" data-label="Research">
-            <div class="inner">Research</div>
-          </div>
+          <!-- Light inner rim ring -->
+          <radialGradient id="innerRimLight" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#f5ecd0"/>
+            <stop offset="100%" stop-color="#d8c090"/>
+          </radialGradient>
 
-          <div class="spice creative" role="listitem" data-label="Creative Writing">
-            <div class="inner">Creative<br/>Writing</div>
-          </div>
+          <!-- Rim top shine -->
+          <radialGradient id="rimTopShine" cx="30%" cy="25%">
+            <stop offset="0%" stop-color="rgba(255,255,245,0.8)" />
+            <stop offset="60%" stop-color="rgba(255,250,230,0.3)" />
+            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+          </radialGradient>
 
-          <div class="spice summer" role="listitem" data-label="Summer Projects">
-            <div class="inner">Summer<br/>Projects</div>
-          </div>
+          <!-- Soft drop shadow -->
+          <filter id="softDrop" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+            <feOffset dx="0" dy="1.5" result="offsetblur"/>
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="0.2"/>
+            </feComponentTransfer>
+            <feMerge>
+              <feMergeNode/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
 
-          <div class="spice community" role="listitem" data-label="Community">
-            <div class="inner">Community</div>
-          </div>
+          <!-- Spice colors matching reference -->
+          <!-- Family - using red spice texture -->
+          <radialGradient id="sp1" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#f5cdb8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#e0a585" stop-opacity="0.5"/>
+          </radialGradient>
+          <radialGradient id="sp2" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#a8c8dc"/>
+            <stop offset="100%" stop-color="#7ca0b8"/>
+          </radialGradient>
+          <radialGradient id="sp3" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#dcc098"/>
+            <stop offset="100%" stop-color="#c09868"/>
+          </radialGradient>
+          <radialGradient id="sp4" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#e8b8a0"/>
+            <stop offset="100%" stop-color="#d09070"/>
+          </radialGradient>
+          <radialGradient id="sp5" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#b0c8d8"/>
+            <stop offset="100%" stop-color="#88a0b8"/>
+          </radialGradient>
+          <radialGradient id="sp6" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#d8c0e0"/>
+            <stop offset="100%" stop-color="#b898c8"/>
+          </radialGradient>
+          <radialGradient id="sp7" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#e8d890"/>
+            <stop offset="100%" stop-color="#d0b860"/>
+          </radialGradient>
+          <radialGradient id="sp8" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#b8d8b0"/>
+            <stop offset="100%" stop-color="#90b088"/>
+          </radialGradient>
+          <radialGradient id="sp9" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#d0c090"/>
+            <stop offset="100%" stop-color="#b09860"/>
+          </radialGradient>
+        </defs>
 
-          <div class="spice robotics" role="listitem" data-label="Robotics">
-            <div class="inner">Robotics</div>
-          </div>
+        <circle cx="500" cy="500" r="430" fill="url(#outerRim)" stroke="rgba(0,0,0,0.06)" stroke-width="1.2"/>
+        <circle cx="500" cy="500" r="380" fill="url(#bedGrad)"/>
+        <g id="cupsLayer"></g>
 
-          <div class="spice family" role="listitem" data-label="Family">
-            <div class="inner">Family</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Popup -->
-      <div class="content-popup" id="contentPopup" aria-hidden="true">
-        <button class="close-btn" id="closeBtn" aria-label="Close">✖</button>
-        <div id="popupText"><h2>Title</h2><p>Content</p></div>
-      </div>
+        <!-- center bowl -->
+        <g id="centerGroup">
+          <circle id="centerRim" cx="500" cy="500" r="1" fill="url(#outerRim)" stroke="rgba(0,0,0,0.06)" stroke-width="1" filter="url(#softDrop)"/>
+          <circle id="centerWall" cx="500" cy="500" r="1" fill="url(#cupInnerShadow)"/>
+          <circle id="centerFill" cx="500" cy="500" r="1" fill="url(#bedGrad)"/>
+          <text x="500" y="500" class="center-label">Home</text>
+        </g>
+      </svg>
     </div>
   </div>
 
+  <!-- Content Pages -->
+  <div id="contentPages"></div>
+
 <script>
-  // JS: open popup with matching content and color accent.
-  (function(){
-    const spices = document.querySelectorAll('.spice');
-    const popup = document.getElementById('contentPopup');
-    const popupText = document.getElementById('popupText');
-    const closeBtn = document.getElementById('closeBtn');
+(function(){
+  const svgNS = "http://www.w3.org/2000/svg";
+  const cupsLayer = document.getElementById('cupsLayer');
+  const mainContainer = document.getElementById('mainContainer');
+  const contentPages = document.getElementById('contentPages');
 
-    const descriptions = {
-      "Language":"Dive into the world of words, linguistics, and the art of communication.",
-      "Knitting":"Threads of creativity woven together to form warmth and artistry.",
-      "Dad":"A tribute to wisdom, laughter, and life lessons shared at home.",
-      "Research":"Exploring, discovering, and understanding through curiosity and science.",
-      "Creative Writing":"Stories, poems, and imagination intertwined in beautiful prose.",
-      "Summer Projects":"A collection of sunshine-filled experiments and hands-on projects.",
-      "Community":"Together we grow, share, and build meaningful connections.",
-      "Robotics":"The harmony of mechanics, logic, and innovation at play.",
-      "Family":"The heart and home — love, roots, and shared memories."
-    };
+  const n = 9;
+  const innerBedR = 380;
+  const s = Math.sin(Math.PI / n);
+  const r = innerBedR * s / (1 + s);
+  const d = r / s;
+  const gap = Math.max(14, r * 0.08);
+  const centerR = d - r - gap;
 
-    // Map color accents from inner backgrounds for a header tint (computed).
-    function computeAccentColor(el) {
-      const inner = el.querySelector('.inner');
-      if (!inner) return null;
-      const bg = getComputedStyle(inner).backgroundImage || getComputedStyle(inner).background;
-      // return the computed background string (used as background for small header dot)
-      return bg;
+  const fills = ['sp1','sp2','sp3','sp4','sp5','sp6','sp7','sp8','sp9'];
+  const labels = ['Family','Language','Research','Creative Writing','Summer Projects','Community','Robotics','Knitting','Dad'];
+  
+  // Using emojis for reliable rendering
+  const iconEmojis = ['👨‍👩‍👧‍👦','💬','🔬','✍️','☀️','🤝','🤖','🧶','👔'];
+  
+  // Content for each section
+  const content = {
+    'Family': {
+      subtitle: 'The heart of everything',
+      content: `
+        <h2>Welcome to My Family</h2>
+        <p>Family is the foundation of who I am. This space celebrates the bonds, memories, and love that shape my life every day.</p>
+        
+        <div class="highlight-box">
+          <p><strong>Family values:</strong> Connection, support, laughter, and unconditional love form the core of our family dynamic.</p>
+        </div>
+
+        <h2>Cherished Moments</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Sunday Dinners</h3>
+            <p>Our weekly tradition of gathering around the table, sharing stories and homemade meals.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Annual Trips</h3>
+            <p>Creating lasting memories through adventures and exploring new places together.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Game Nights</h3>
+            <p>Friendly competition and lots of laughter over board games and cards.</p>
+          </div>
+        </div>
+
+        <h2>What Family Means to Me</h2>
+        <p>Family isn't just about being related by blood—it's about the people who show up, who care, and who make life richer. From quiet morning coffees to loud holiday celebrations, every moment matters.</p>
+        <p>These relationships teach me patience, joy, and the importance of being present. They remind me that no matter where life takes me, I always have a home to return to.</p>
+      `
+    },
+    'Language': {
+      subtitle: 'Words that connect worlds',
+      content: `
+        <h2>The Power of Language</h2>
+        <p>Language is more than communication—it's a bridge between cultures, a tool for expression, and a window into different ways of thinking.</p>
+
+        <h2>Languages I Love</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>English</h3>
+            <p>My primary language for creative expression and daily communication.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Spanish</h3>
+            <p>A melodic language that opened doors to new friendships and cultures.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Hindi</h3>
+            <p>Connecting with my heritage and understanding family stories.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <p><strong>Current focus:</strong> Deepening my understanding of linguistic patterns and how language shapes thought.</p>
+        </div>
+
+        <h2>Language Learning Journey</h2>
+        <p>Every language teaches you something new—not just vocabulary and grammar, but different ways of expressing emotions, concepts, and cultural values.</p>
+        <p>I'm fascinated by etymology, language evolution, and the way words carry history within them. Each new phrase learned is like discovering a hidden treasure.</p>
+      `
+    },
+    'Research': {
+      subtitle: 'Curiosity in action',
+      content: `
+        <h2>Research Interests</h2>
+        <p>My research explores the intersection of technology, human behavior, and social impact. I'm driven by questions that don't have easy answers.</p>
+
+        <h2>Current Projects</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>AI Ethics</h3>
+            <p>Investigating the ethical implications of artificial intelligence in decision-making systems.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Language Processing</h3>
+            <p>Exploring how computers understand and generate human language.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Human-Computer Interaction</h3>
+            <p>Studying how people interact with technology and how to improve these experiences.</p>
+          </div>
+        </div>
+
+        <h2>Research Philosophy</h2>
+        <p>Good research starts with genuine curiosity. I believe in asking difficult questions, challenging assumptions, and being willing to follow the evidence wherever it leads.</p>
+
+        <div class="highlight-box">
+          <p><strong>Methodology:</strong> I combine quantitative analysis with qualitative insights to build a complete picture of complex problems.</p>
+        </div>
+
+        <h2>Publications & Papers</h2>
+        <p>My work has explored topics ranging from machine learning applications to social computing. I'm committed to making research accessible and applicable to real-world challenges.</p>
+      `
+    },
+    'Creative Writing': {
+      subtitle: 'Stories waiting to be told',
+      content: `
+        <h2>The Art of Storytelling</h2>
+        <p>Creative writing is where imagination meets craft. Through stories, poems, and essays, I explore what it means to be human.</p>
+
+        <div class="highlight-box">
+          <p><strong>Writing philosophy:</strong> Every story is an opportunity to understand ourselves and others a little better.</p>
+        </div>
+
+        <h2>Writing Projects</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Short Fiction</h3>
+            <p>Crafting compact narratives that pack an emotional punch.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Poetry</h3>
+            <p>Exploring rhythm, imagery, and the music of language.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Creative Nonfiction</h3>
+            <p>Finding the story in real-life experiences and observations.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Novel in Progress</h3>
+            <p>Working on a longer narrative that weaves together multiple perspectives.</p>
+          </div>
+        </div>
+
+        <h2>Writing Inspirations</h2>
+        <p>I draw inspiration from everyday moments—a conversation overheard at a café, the way light falls through trees, the complexity of human relationships. The best stories often hide in plain sight.</p>
+        <p>My influences range from classic literature to contemporary voices, from magical realism to stark realism. I believe in learning from every genre and every writer who moves me.</p>
+      `
+    },
+    'Summer Projects': {
+      subtitle: 'Making the most of sunny days',
+      content: `
+        <h2>Summer Adventures</h2>
+        <p>Summer is my season of exploration and creation. When the days are long and the weather is warm, I dive into projects that challenge and inspire me.</p>
+
+        <h2>This Summer's Focus</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Garden Project</h3>
+            <p>Growing vegetables and learning about sustainable gardening practices.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Photography Series</h3>
+            <p>Documenting the changing landscape and capturing fleeting moments.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Coding Bootcamp</h3>
+            <p>Building web applications and expanding my technical skills.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Reading Challenge</h3>
+            <p>Tackling that stack of books I've been meaning to read.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <p><strong>Summer goal:</strong> Balance productivity with relaxation, learning with leisure, and ambition with presence.</p>
+        </div>
+
+        <h2>Past Summer Highlights</h2>
+        <p>Previous summers have brought everything from road trips to research internships, from learning new instruments to volunteering in the community. Each summer teaches me something new about myself and the world.</p>
+      `
+    },
+    'Community': {
+      subtitle: 'Building connections',
+      content: `
+        <h2>Community Engagement</h2>
+        <p>Being part of a community means showing up, contributing, and building relationships that make everyone stronger.</p>
+
+        <h2>Ways I Contribute</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Tutoring</h3>
+            <p>Helping students discover their potential in math and science.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Local Library</h3>
+            <p>Volunteering at reading programs and community events.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Food Bank</h3>
+            <p>Organizing food drives and supporting neighbors in need.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Environmental Cleanup</h3>
+            <p>Participating in local park cleanups and conservation efforts.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <p><strong>Community belief:</strong> Small actions, when multiplied by many people, create meaningful change.</p>
+        </div>
+
+        <h2>The Impact of Connection</h2>
+        <p>Community work has taught me that everyone has something valuable to offer. It's humbling to learn from people of all ages and backgrounds, and to see how collective effort can transform spaces and lives.</p>
+        <p>Whether it's organizing a neighborhood event or simply being a friendly face at the local market, every interaction contributes to the fabric of community.</p>
+      `
+    },
+    'Robotics': {
+      subtitle: 'Where engineering meets imagination',
+      content: `
+        <h2>Robotics Journey</h2>
+        <p>Robotics combines my love of problem-solving, engineering, and creativity. There's something magical about bringing machines to life.</p>
+
+        <h2>Current Robotics Work</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Competition Robot</h3>
+            <p>Designing and building robots for competitive challenges.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Arduino Projects</h3>
+            <p>Creating interactive electronics and automation systems.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Computer Vision</h3>
+            <p>Teaching robots to see and understand their environment.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Team Leadership</h3>
+            <p>Mentoring younger team members and coordinating projects.</p>
+          </div>
+        </div>
+
+        <h2>Skills Developed</h2>
+        <p>Through robotics, I've learned mechanical design, programming, electronics, and the importance of iterative testing. But more than technical skills, robotics has taught me collaboration, perseverance, and creative problem-solving under pressure.</p>
+
+        <div class="highlight-box">
+          <p><strong>Favorite moment:</strong> Watching our robot complete an autonomous mission for the first time after weeks of debugging and refinement.</p>
+        </div>
+
+        <h2>The Future of Robotics</h2>
+        <p>I'm excited about the potential of robotics to solve real-world problems—from assisting people with disabilities to exploring dangerous environments to automating tedious tasks so humans can focus on more meaningful work.</p>
+      `
+    },
+    'Knitting': {
+      subtitle: 'Crafting with care',
+      content: `
+        <h2>The Joy of Knitting</h2>
+        <p>Knitting is my meditation, my creative outlet, and my way of making tangible expressions of care. Each stitch is a small moment of mindfulness.</p>
+
+        <div class="highlight-box">
+          <p><strong>Why I knit:</strong> In a fast-paced digital world, there's something deeply satisfying about creating something physical, one stitch at a time.</p>
+        </div>
+
+        <h2>Recent Projects</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Cozy Sweaters</h3>
+            <p>Hand-knit sweaters that tell stories through their patterns.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Baby Blankets</h3>
+            <p>Soft, warm gifts for new arrivals in friends' families.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Colorwork</h3>
+            <p>Exploring intricate patterns with multiple colors.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Socks</h3>
+            <p>The perfect portable project with endless variety.</p>
+          </div>
+        </div>
+
+        <h2>The Knitting Community</h2>
+        <p>I've found a wonderful community of knitters—both online and in local knitting circles. We share patterns, troubleshoot problems, and celebrate each other's finished projects. There's a generosity in the knitting world that's truly special.</p>
+
+        <h2>More Than a Hobby</h2>
+        <p>Knitting teaches patience, attention to detail, and the value of slow creation. It's taught me that mistakes can be fixed, that practice truly does make progress, and that the journey is often more valuable than the destination.</p>
+      `
+    },
+    'Dad': {
+      subtitle: 'A tribute to my hero',
+      content: `
+        <h2>About Dad</h2>
+        <p>This space is dedicated to the person who has shaped who I am more than anyone else—my dad. He's taught me by example what it means to be kind, hardworking, and true to your values.</p>
+
+        <div class="highlight-box">
+          <p><strong>Dad's motto:</strong> "Work hard, be kind, and never stop learning."</p>
+        </div>
+
+        <h2>Lessons Learned</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Integrity</h3>
+            <p>Always do the right thing, even when no one is watching.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Curiosity</h3>
+            <p>Ask questions and never stop seeking to understand.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Resilience</h3>
+            <p>Face challenges head-on and learn from setbacks.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Compassion</h3>
+            <p>Everyone you meet is fighting a battle you know nothing about.</p>
+          </div>
+        </div>
+
+        <h2>Favorite Memories</h2>
+        <p>From weekend projects in the garage to long conversations over breakfast, from teaching me to ride a bike to helping me navigate life's big decisions—every moment with Dad is a gift.</p>
+        <p>His quiet strength, his terrible dad jokes, his unwavering support—these are the things that make him extraordinary. He's not just my father; he's my mentor, my friend, and my inspiration.</p>
+
+        <h2>Following in His Footsteps</h2>
+        <p>I hope to carry forward the values he's instilled in me and someday be as positive an influence on others as he has been on me.</p>
+      `
+    }
+  };
+
+  // Create spice cups
+  while (cupsLayer.firstChild) cupsLayer.removeChild(cupsLayer.firstChild);
+
+  for (let i = 0; i < n; i++) {
+    const ang = (2 * Math.PI * i) / n - Math.PI/2;
+    const cx = 500 + d * Math.cos(ang);
+    const cy = 500 + d * Math.sin(ang);
+
+    const g = document.createElementNS(svgNS, 'g');
+    g.setAttribute('transform', `translate(${cx},${cy})`);
+    g.setAttribute('class', 'cup-hit');
+    g.setAttribute('data-section', labels[i]);
+
+    // Layer 1: Outer rim (golden brass ring)
+    const outerRim = document.createElementNS(svgNS, 'circle');
+    outerRim.setAttribute('r', r.toFixed(2));
+    outerRim.setAttribute('fill', 'url(#outerRim)');
+    outerRim.setAttribute('stroke', 'rgba(120, 90, 50, 0.3)');
+    outerRim.setAttribute('stroke-width', '0.5');
+
+    // Layer 2: Rim top highlight
+    const rimShine = document.createElementNS(svgNS, 'circle');
+    rimShine.setAttribute('r', (r - 1).toFixed(2));
+    rimShine.setAttribute('fill', 'url(#rimTopShine)');
+
+    // Layer 3: Inner light rim ring (the golden inner circle)
+    const innerLightRim = document.createElementNS(svgNS, 'circle');
+    innerLightRim.setAttribute('r', (r - 4).toFixed(2));
+    innerLightRim.setAttribute('fill', 'url(#innerRimLight)');
+
+    // Layer 4: THIN dark ring (1-1.5px) at the edge
+    const thinDarkRing = document.createElementNS(svgNS, 'circle');
+    thinDarkRing.setAttribute('r', (r - 6).toFixed(2));
+    thinDarkRing.setAttribute('fill', 'none');
+    thinDarkRing.setAttribute('stroke', 'rgba(60, 40, 15, 0.7)');
+    thinDarkRing.setAttribute('stroke-width', '1.5');
+
+    // Layer 5: Subtle inner edge shadow
+    const innerEdgeShadow = document.createElementNS(svgNS, 'circle');
+    innerEdgeShadow.setAttribute('r', (r - 7).toFixed(2));
+    innerEdgeShadow.setAttribute('fill', 'url(#rimInnerEdge)');
+
+    // Layer 6: Gradual well depth shadow
+    const wellDepth = document.createElementNS(svgNS, 'circle');
+    wellDepth.setAttribute('r', (r - 9).toFixed(2));
+    wellDepth.setAttribute('fill', 'url(#wellDepthGradient)');
+
+    // Layer 7: Well bottom base
+    const wellBase = document.createElementNS(svgNS, 'circle');
+    wellBase.setAttribute('r', (r - 14).toFixed(2));
+    wellBase.setAttribute('fill', 'url(#bedGrad)');
+    wellBase.setAttribute('opacity', '0.3');
+
+    // Layer 8: THE SPICE (centered and deep)
+    const powder = document.createElementNS(svgNS, 'circle');
+    powder.setAttribute('r', (r - 16).toFixed(2));
+    
+    let overlay = null;
+    
+    // For Family (index 0), use texture pattern
+    if (i === 0) {
+      powder.setAttribute('fill', 'url(#spiceTextureRed)');
+      
+      // Add a color overlay for blending
+      overlay = document.createElementNS(svgNS, 'circle');
+      overlay.setAttribute('r', (r - 16).toFixed(2));
+      overlay.setAttribute('fill', 'url(#sp1)');
+      overlay.setAttribute('style', 'mix-blend-mode: multiply');
+    } else {
+      powder.setAttribute('fill', `url(#${fills[i % fills.length]})`);
     }
 
-    spices.forEach(sp => {
-      sp.addEventListener('click', (e) => {
-        const label = sp.getAttribute('data-label') || sp.textContent.trim();
-        const desc = descriptions[label] || "";
-        popupText.innerHTML = `<h2>${label}</h2><p>${desc}</p>`;
-        // bring popup visible
-        popup.classList.add('show');
-        popup.setAttribute('aria-hidden','false');
+    // Layer 9: Subtle hover glow
+    const innerGlow = document.createElementNS(svgNS, 'circle');
+    innerGlow.setAttribute('r', (r - 16).toFixed(2));
+    innerGlow.setAttribute('class', 'inner-glow');
+    innerGlow.setAttribute('fill', 'rgba(255,255,255,0.15)');
 
-        // ensure it's on top
-        popup.style.zIndex = 60;
-      });
+    // Create icon as SVG text element with emojis
+    const iconText = document.createElementNS(svgNS, 'text');
+    iconText.setAttribute('x', 0);
+    iconText.setAttribute('y', -5);
+    iconText.setAttribute('class', 'cup-icon');
+    iconText.setAttribute('font-size', '45');
+    iconText.setAttribute('text-anchor', 'middle');
+    iconText.setAttribute('dominant-baseline', 'middle');
+    
+    iconText.textContent = iconEmojis[i];
+
+    const label = document.createElementNS(svgNS, 'text');
+    label.setAttribute('class', 'cup-label');
+    label.setAttribute('x', 0);
+    label.setAttribute('y', 25);
+    label.textContent = labels[i];
+
+    g.appendChild(outerRim);
+    g.appendChild(rimShine);
+    g.appendChild(innerLightRim);
+    g.appendChild(thinDarkRing);
+    g.appendChild(innerEdgeShadow);
+    g.appendChild(wellDepth);
+    g.appendChild(wellBase);
+    g.appendChild(powder);
+    
+    // Add overlay if it exists (for textured spices)
+    if (overlay) {
+      g.appendChild(overlay);
+    }
+    
+    g.appendChild(innerGlow);
+    g.appendChild(iconText);
+    g.appendChild(label);
+
+    g.setAttribute('filter', 'url(#softDrop)');
+    
+    // Click handler to show content page
+    g.addEventListener('click', () => {
+      showContentPage(labels[i]);
     });
 
-    closeBtn.addEventListener('click', () => {
-      popup.classList.remove('show');
-      popup.setAttribute('aria-hidden','true');
-    });
+    cupsLayer.appendChild(g);
+  }
 
-    // close popup on Escape
-    document.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Escape') {
-        popup.classList.remove('show');
-        popup.setAttribute('aria-hidden','true');
-      }
-    });
-  })();
+  // Setup center bowl
+  const centerRim = document.getElementById('centerRim');
+  const centerWall = document.getElementById('centerWall');
+  const centerFill = document.getElementById('centerFill');
+  const rimThickness = Math.max(7, r * 0.12);
+  centerRim.setAttribute('r', (centerR + rimThickness).toFixed(2));
+  centerWall.setAttribute('r', (centerR + 2).toFixed(2));
+  centerFill.setAttribute('r', centerR.toFixed(2));
+
+  // Create content pages
+  function showContentPage(section) {
+    // Hide main container
+    mainContainer.classList.add('hidden');
+
+    // Create or show content page
+    let page = document.getElementById(`page-${section}`);
+    
+    if (!page) {
+      page = document.createElement('div');
+      page.id = `page-${section}`;
+      page.className = 'content-page';
+      
+      const sectionData = content[section];
+      const sectionIndex = labels.indexOf(section);
+      const iconEmoji = iconEmojis[sectionIndex];
+      
+      page.innerHTML = `
+        <div class="back-btn" onclick="hidePage('${section}')">
+          <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="500" cy="500" r="430" fill="url(#outerRim)" stroke="rgba(120, 90, 50, 0.3)" stroke-width="8"/>
+            <circle cx="500" cy="500" r="380" fill="url(#bedGrad)"/>
+            <circle cx="500" cy="500" r="120" fill="url(#outerRim)" stroke="rgba(120, 90, 50, 0.3)" stroke-width="4"/>
+            <circle cx="500" cy="500" r="100" fill="url(#bedGrad)"/>
+            <text x="500" y="515" font-size="60" font-weight="700" fill="#4b2e0f" text-anchor="middle" dominant-baseline="middle">🏠</text>
+          </svg>
+        </div>
+        <div class="content-inner">
+          <div class="content-header">
+            <div class="content-icon" style="font-size: 4rem;">
+              ${iconEmoji}
+            </div>
+            <h1 class="content-title">${section}</h1>
+            <p class="content-subtitle">${sectionData.subtitle}</p>
+          </div>
+          <div class="content-body">
+            ${sectionData.content}
+          </div>
+        </div>
+      `;
+      
+      contentPages.appendChild(page);
+    }
+    
+    // Show page with delay for animation
+    setTimeout(() => {
+      page.classList.add('active');
+    }, 100);
+  }
+
+  // Function to hide content page and return to main
+  window.hidePage = function(section) {
+    const page = document.getElementById(`page-${section}`);
+    if (page) {
+      page.classList.remove('active');
+    }
+    
+    // Show main container
+    setTimeout(() => {
+      mainContainer.classList.remove('hidden');
+    }, 300);
+  };
+
+  // Handle browser back button
+  window.addEventListener('popstate', function() {
+    const activePage = document.querySelector('.content-page.active');
+    if (activePage) {
+      activePage.classList.remove('active');
+      mainContainer.classList.remove('hidden');
+    }
+  });
+})();
 </script>
 </body>
 </html>
