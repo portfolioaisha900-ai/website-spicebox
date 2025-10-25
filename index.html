@@ -18,7 +18,7 @@
 
   * { box-sizing: border-box; }
   
-  html,body{height:100%;margin:0;overflow-x:hidden;}
+  html,body{height:100%;margin:0;overflow:hidden;}
   body{
     background: radial-gradient(circle at 35% 25%, var(--bg1), var(--bg2));
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
@@ -27,25 +27,28 @@
 
   /* Main Container */
   .main-container {
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height for mobile */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 18px;
     transition: opacity 0.4s ease, transform 0.4s ease;
+    overflow: hidden;
   }
 
 
   .page-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
   }
 
   .main-title {
     font-size: 3.5rem;
     color: #8b5a2b;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
     font-weight: 900;
     letter-spacing: 1px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -65,7 +68,13 @@
     pointer-events: none;
   }
 
-  .wrap{ width: min(88vmin, 980px); }
+  .wrap{ 
+    width: min(88vmin, 980px); 
+    flex-shrink: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   svg{ width:100%; height:auto; display:block; }
 
   text{ fill: var(--label); font-weight:700; text-anchor:middle; dominant-baseline:middle; pointer-events:none; }
@@ -115,6 +124,7 @@
     pointer-events: none;
     transition: opacity 0.5s ease;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -293,6 +303,17 @@
 
   /* Responsive Design */
   @media (max-width: 768px) {
+    .main-container {
+      padding: 12px;
+      justify-content: flex-start;
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+
+    .page-header {
+      margin-bottom: 20px;
+      margin-top: 10px;
+    }
+
     .content-inner {
       padding: 70px 20px 40px;
     }
@@ -354,6 +375,20 @@
   }
 
   @media (max-width: 480px) {
+    .main-container {
+      padding: 8px;
+      min-height: 100dvh;
+    }
+
+    .page-header {
+      margin-bottom: 15px;
+      margin-top: 5px;
+    }
+
+    .wrap {
+      width: min(92vmin, 980px);
+    }
+
     .content-title {
       font-size: 1.8rem;
     }
@@ -372,6 +407,7 @@
 
     .main-title {
       font-size: 2rem;
+      margin-bottom: 5px;
     }
 
     .main-subtitle {
