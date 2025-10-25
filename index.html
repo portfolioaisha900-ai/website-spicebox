@@ -847,10 +847,10 @@
   const gap = Math.max(14, r * 0.08);
   const centerR = d - r - gap;
 
-  const labels = ['Family','Language','Research','Creative Writing','Summer Projects','Community','Robotics','Knitting','Dad'];
+  const labels = ['Family','Language','Research','Creative Writing','Summer Projects','Girls Who Code','Robotics','Knitting','Dad'];
   
   // Using emojis for reliable rendering
-  const iconEmojis = ['👨‍👩‍👧‍👦','💬','🔬','✍️','☀️','🤝','🤖','🧶','👔'];
+  const iconEmojis = ['👨‍👩‍👧‍👦','💬','🔬','✍️','☀️','👩‍💻','🤖','🧶','👔'];
   
   // Detailed research project content
   const researchProjects = {
@@ -1210,39 +1210,65 @@
         <p>Previous summers have brought everything from road trips to research internships, from learning new instruments to volunteering in the community. Each summer teaches me something new about myself and the world.</p>
       `
     },
-    'Community': {
-      subtitle: 'Building connections',
+    'Girls Who Code': {
+      subtitle: 'Building connections through technology',
       content: `
-        <h2>Community Engagement</h2>
-        <p>Being part of a community means showing up, contributing, and building relationships that make everyone stronger.</p>
-
-        <h2>Ways I Contribute</h2>
-        <div class="feature-grid">
-          <div class="feature-card">
-            <h3>Tutoring</h3>
-            <p>Helping students discover their potential in math and science.</p>
-          </div>
-          <div class="feature-card">
-            <h3>Local Library</h3>
-            <p>Volunteering at reading programs and community events.</p>
-          </div>
-          <div class="feature-card">
-            <h3>Food Bank</h3>
-            <p>Organizing food drives and supporting neighbors in need.</p>
-          </div>
-          <div class="feature-card">
-            <h3>Environmental Cleanup</h3>
-            <p>Participating in local park cleanups and conservation efforts.</p>
-          </div>
+        <h2>Girls Who Code</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
+          <img src="images/GirlsWhoCode1.webp" alt="Girls Who Code group photo" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+          <img src="images/GirlsWhoCode2.webp" alt="Girls Who Code activity" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
         </div>
+
+        <p>Girls Who Code has been a transformative experience in my journey as a young woman in STEM. This organization isn't just about learning to code—it's about building a community, finding mentors, and empowering the next generation of female technologists.</p>
 
         <div class="highlight-box">
-          <p><strong>Community belief:</strong> Small actions, when multiplied by many people, create meaningful change.</p>
+          <p><strong>Our Mission:</strong> Closing the gender gap in technology by inspiring, educating, and equipping young women with computing skills to pursue 21st-century opportunities.</p>
         </div>
 
-        <h2>The Impact of Connection</h2>
-        <p>Community work has taught me that everyone has something valuable to offer. It's humbling to learn from people of all ages and backgrounds, and to see how collective effort can transform spaces and lives.</p>
-        <p>Whether it's organizing a neighborhood event or simply being a friendly face at the local market, every interaction contributes to the fabric of community.</p>
+        <h2>My Journey</h2>
+        <p>Through Girls Who Code, I've discovered that being part of a supportive community makes all the difference. It's not just about what you know—it's about who you learn with, who inspires you, and who you can inspire in return.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0;">
+          <img src="images/GirlsWhoCode3.webp" alt="Girls Who Code teaching" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+          <img src="images/GirlsWhoCode4.webp" alt="Girls Who Code collaboration" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        </div>
+
+        <h2>What We Do</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Learn Together</h3>
+            <p>From Python to web development, we explore coding languages and technologies in a supportive, collaborative environment.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Build Projects</h3>
+            <p>Creating real-world applications that solve problems we care about, from social justice to environmental issues.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Mentor & Lead</h3>
+            <p>As we grow, we mentor younger students, teaching workshops and sharing our passion for technology.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Connect & Network</h3>
+            <p>Meeting women in tech, attending company visits, and building relationships that will support our careers.</p>
+          </div>
+        </div>
+
+        <div style="margin: 30px 0;">
+          <img src="images/GirlsWhoCode5.webp" alt="Girls Who Code team" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block; margin: 0 auto;">
+        </div>
+
+        <h2>The Impact</h2>
+        <p>Girls Who Code has given me more than technical skills. It's given me confidence, a network of brilliant peers, and the belief that I belong in technology. Every line of code we write together is a step toward a more diverse and inclusive tech industry.</p>
+
+        <p>In a field where women are still underrepresented, finding your community is everything. Girls Who Code has been mine, and I'm committed to paying it forward by helping more young women discover their potential in STEM.</p>
+
+        <div class="highlight-box">
+          <p><strong>Fun Fact:</strong> Through Girls Who Code, I've had the opportunity to visit tech companies, participate in hackathons, and connect with incredible role models who are paving the way for women in technology.</p>
+        </div>
+
+        <h2>Beyond Coding</h2>
+        <p>While coding is at the heart of what we do, Girls Who Code has taught me about leadership, teamwork, and using technology as a force for positive change. The friendships I've made and the confidence I've gained will stay with me throughout my career in STEM.</p>
       `
     },
     'Robotics': {
