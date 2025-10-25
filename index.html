@@ -8,12 +8,23 @@
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
+<!-- Google Fonts - Enhanced typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --bg1: #f6e6cf;
     --bg2: #e3c79b;
     --label: #4b2e0f;
     --content-bg: #faf7f0;
+    --accent-warm: #d4905f;
+    
+    /* Font stacks */
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Cormorant Garamond', Georgia, serif;
+    --font-label: 'Montserrat', system-ui, -apple-system, sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -21,7 +32,7 @@
   html,body{height:100%;margin:0;overflow-x:hidden;}
   body{
     background: radial-gradient(circle at 35% 25%, var(--bg1), var(--bg2));
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    font-family: var(--font-body);
     position: relative;
   }
 
@@ -43,20 +54,24 @@
   }
 
   .main-title {
-    font-size: 3.5rem;
+    font-family: var(--font-display);
+    font-size: 3.8rem;
     color: #8b5a2b;
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
     font-weight: 900;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    line-height: 1.1;
   }
 
   .main-subtitle {
-    font-size: 1.3rem;
+    font-family: var(--font-body);
+    font-size: 1.4rem;
     color: #6b4423;
     margin: 0;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 500;
+    letter-spacing: 0.3px;
   }
 
   .main-container.hidden {
@@ -68,7 +83,14 @@
   .wrap{ width: min(88vmin, 980px); }
   svg{ width:100%; height:auto; display:block; }
 
-  text{ fill: var(--label); font-weight:700; text-anchor:middle; dominant-baseline:middle; pointer-events:none; }
+  text{ 
+    fill: var(--label); 
+    font-weight:700; 
+    text-anchor:middle; 
+    dominant-baseline:middle; 
+    pointer-events:none;
+    font-family: var(--font-label);
+  }
 
   /* Hover: gentle pop without movement */
   .cup-hit {
@@ -89,13 +111,17 @@
   .cup-label { 
     font-size: 1rem;
     paint-order: stroke fill;
-    stroke: rgba(255, 255, 255, 0.9);
+    stroke: rgba(255, 255, 255, 0.95);
     stroke-width: 4px;
     stroke-linejoin: round;
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+    font-weight: 700;
+    letter-spacing: 0.3px;
   }
   .center-label { 
-    font-size: 1.25rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
   }
   .cup-icon { 
     pointer-events: none;
@@ -196,18 +222,23 @@
   }
 
   .content-title {
-    font-size: 3rem;
+    font-family: var(--font-display);
+    font-size: 3.2rem;
     color: var(--label);
-    margin: 0 0 15px 0;
+    margin: 0 0 18px 0;
     font-weight: 800;
     letter-spacing: -0.5px;
+    line-height: 1.1;
   }
 
   .content-subtitle {
-    font-size: 1.2rem;
+    font-family: var(--font-body);
+    font-size: 1.35rem;
     color: #8f6124;
     margin: 0;
-    font-weight: 400;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.3px;
   }
 
   /* Content Body */
@@ -216,15 +247,19 @@
     border-radius: 20px;
     padding: 50px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    line-height: 1.8;
+    line-height: 1.85;
     color: #333;
+    font-family: var(--font-body);
   }
 
   .content-body h2 {
+    font-family: var(--font-display);
     color: var(--label);
-    font-size: 2rem;
-    margin: 40px 0 20px 0;
+    font-size: 2.2rem;
+    margin: 45px 0 22px 0;
     font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
   }
 
   .content-body h2:first-child {
@@ -232,26 +267,39 @@
   }
 
   .content-body p {
-    margin: 0 0 20px 0;
-    font-size: 1.1rem;
+    margin: 0 0 22px 0;
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1.85;
   }
 
   .content-body ul, .content-body ol {
-    margin: 20px 0;
+    margin: 22px 0;
     padding-left: 30px;
   }
 
   .content-body li {
-    margin: 10px 0;
-    font-size: 1.1rem;
+    margin: 12px 0;
+    font-size: 1.12rem;
+    line-height: 1.75;
+  }
+
+  .content-body strong {
+    font-weight: 600;
+    color: var(--label);
   }
 
   .highlight-box {
     background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
     border-left: 4px solid #d0a64b;
-    padding: 25px;
-    margin: 30px 0;
+    padding: 25px 30px;
+    margin: 32px 0;
     border-radius: 8px;
+  }
+
+  .highlight-box p {
+    font-size: 1.12rem;
+    line-height: 1.75;
   }
 
   .highlight-box p:last-child {
@@ -263,12 +311,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
-    margin: 30px 0;
+    margin: 32px 0;
   }
 
   .feature-card {
     background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
-    padding: 25px;
+    padding: 28px;
     border-radius: 12px;
     border: 1px solid rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -280,15 +328,19 @@
   }
 
   .feature-card h3 {
+    font-family: var(--font-label);
     color: var(--label);
-    margin: 0 0 10px 0;
-    font-size: 1.3rem;
+    margin: 0 0 12px 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
   }
 
   .feature-card p {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.08rem;
     color: #666;
+    line-height: 1.7;
   }
 
   /* Responsive Design */
@@ -298,20 +350,20 @@
     }
 
     .main-title {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
     }
 
     .main-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
     }
 
     .content-body {
-      padding: 30px 25px;
+      padding: 35px 28px;
       border-radius: 15px;
     }
 
     .content-title {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
     }
 
     .content-icon {
@@ -319,15 +371,15 @@
     }
 
     .content-subtitle {
-      font-size: 1rem;
+      font-size: 1.15rem;
     }
 
     .content-body h2 {
-      font-size: 1.6rem;
+      font-size: 1.85rem;
     }
 
     .content-body p, .content-body li {
-      font-size: 1rem;
+      font-size: 1.08rem;
     }
 
     .back-btn {
@@ -346,16 +398,20 @@
 
   @media (max-width: 600px){
     .cup-label { 
-      font-size: .82rem;
+      font-size: .88rem;
       stroke-width: 3px;
+      letter-spacing: 0.2px;
     }
-    .center-label { font-size: 1rem; }
+    .center-label { 
+      font-size: 1.1rem; 
+      letter-spacing: 0.3px;
+    }
     .cup-icon { font-size: 14; }
   }
 
   @media (max-width: 480px) {
     .content-title {
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
 
     .content-icon {
@@ -363,18 +419,26 @@
     }
 
     .content-body {
-      padding: 25px 20px;
+      padding: 28px 22px;
     }
 
     .content-body h2 {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
 
     .main-title {
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
 
     .main-subtitle {
+      font-size: 1.05rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.2rem;
+    }
+
+    .feature-card p {
       font-size: 1rem;
     }
   }
