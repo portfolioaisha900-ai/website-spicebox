@@ -31,9 +31,122 @@
   
   html,body{height:100%;margin:0;overflow-x:hidden;}
   body{
-    background: radial-gradient(circle at 35% 25%, var(--bg1), var(--bg2));
-    font-family: var(--font-body);
     position: relative;
+    font-family: var(--font-body);
+    background: #e8d5b7;
+  }
+
+  /* Layered background with subtle patterns */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: 
+      /* Radial gradient overlay */
+      radial-gradient(circle at 35% 25%, 
+        rgba(246, 230, 207, 0.95), 
+        rgba(227, 199, 155, 0.85)
+      ),
+      /* Subtle spice-inspired pattern */
+      radial-gradient(circle at 20% 80%, rgba(212, 144, 95, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(139, 90, 43, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 60% 70%, rgba(227, 199, 155, 0.1) 0%, transparent 40%),
+      /* Base warm color */
+      linear-gradient(135deg, #f6e6cf 0%, #e8d5b7 50%, #e3c79b 100%);
+  }
+
+  /* Subtle texture overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.03;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 90, 43, 0.4) 2px, rgba(139, 90, 43, 0.4) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(139, 90, 43, 0.4) 2px, rgba(139, 90, 43, 0.4) 4px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+
+  /* Decorative elements - subtle floating spices */
+  .bg-decoration {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .floating-element {
+    position: absolute;
+    opacity: 0.04;
+    animation: float-drift 20s ease-in-out infinite;
+  }
+
+  .floating-element:nth-child(1) {
+    top: 10%;
+    left: 5%;
+    font-size: 80px;
+    animation-delay: 0s;
+    animation-duration: 25s;
+  }
+
+  .floating-element:nth-child(2) {
+    top: 60%;
+    right: 8%;
+    font-size: 100px;
+    animation-delay: 5s;
+    animation-duration: 30s;
+  }
+
+  .floating-element:nth-child(3) {
+    top: 75%;
+    left: 10%;
+    font-size: 70px;
+    animation-delay: 10s;
+    animation-duration: 28s;
+  }
+
+  .floating-element:nth-child(4) {
+    top: 25%;
+    right: 15%;
+    font-size: 90px;
+    animation-delay: 3s;
+    animation-duration: 32s;
+  }
+
+  .floating-element:nth-child(5) {
+    top: 85%;
+    right: 25%;
+    font-size: 75px;
+    animation-delay: 7s;
+    animation-duration: 27s;
+  }
+
+  @keyframes float-drift {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(20px, -20px) rotate(5deg);
+    }
+    50% {
+      transform: translate(-15px, 15px) rotate(-3deg);
+    }
+    75% {
+      transform: translate(15px, 10px) rotate(4deg);
+    }
   }
 
   /* Main Container */
@@ -45,8 +158,9 @@
     justify-content: center;
     padding: 18px;
     transition: opacity 0.4s ease, transform 0.4s ease;
+    position: relative;
+    z-index: 1;
   }
-
 
   .page-header {
     text-align: center;
@@ -60,7 +174,9 @@
     margin: 0 0 12px 0;
     font-weight: 900;
     letter-spacing: 0.5px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 
+      2px 2px 4px rgba(0,0,0,0.1),
+      0 0 20px rgba(255,255,255,0.6);
     line-height: 1.1;
   }
 
@@ -72,6 +188,7 @@
     font-style: italic;
     font-weight: 500;
     letter-spacing: 0.3px;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.8);
   }
 
   .main-container.hidden {
@@ -80,7 +197,12 @@
     pointer-events: none;
   }
 
-  .wrap{ width: min(88vmin, 980px); }
+  .wrap{ 
+    width: min(88vmin, 980px);
+    position: relative;
+    z-index: 2;
+  }
+  
   svg{ width:100%; height:auto; display:block; }
 
   text{ 
@@ -394,6 +516,10 @@
       grid-template-columns: 1fr;
       gap: 20px;
     }
+
+    .floating-element {
+      opacity: 0.02;
+    }
   }
 
   @media (max-width: 600px){
@@ -441,10 +567,23 @@
     .feature-card p {
       font-size: 1rem;
     }
+
+    .floating-element {
+      display: none;
+    }
   }
 </style>
 </head>
 <body>
+  <!-- Decorative background elements -->
+  <div class="bg-decoration">
+    <div class="floating-element">🌿</div>
+    <div class="floating-element">✨</div>
+    <div class="floating-element">🌸</div>
+    <div class="floating-element">🍃</div>
+    <div class="floating-element">⭐</div>
+  </div>
+
   <!-- Main Masala Dabba Container -->
   <div class="main-container" id="mainContainer">
     <div class="page-header">
