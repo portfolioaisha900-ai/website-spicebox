@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
 
   * { box-sizing: border-box; }
   
-  html,body{height:100%;margin:0;overflow:hidden;}
+  html,body{height:100%;margin:0;overflow-x:hidden;}
   body{
     background: radial-gradient(circle at 35% 25%, var(--bg1), var(--bg2));
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
@@ -27,23 +28,19 @@
 
   /* Main Container */
   .main-container {
-    height: 100vh;
-    height: 100dvh; /* Use dynamic viewport height for mobile */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 18px;
-    gap: 20px;
+    padding: 18px;
     transition: opacity 0.4s ease, transform 0.4s ease;
-    overflow: hidden;
   }
 
 
   .page-header {
     text-align: center;
-    margin-bottom: 0;
-    flex-shrink: 0;
+    margin-bottom: 30px;
   }
 
   .main-title {
@@ -69,13 +66,7 @@
     pointer-events: none;
   }
 
-  .wrap{ 
-    width: min(88vmin, 980px); 
-    flex-shrink: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .wrap{ width: min(88vmin, 980px); }
   svg{ width:100%; height:auto; display:block; }
 
   text{ fill: var(--label); font-weight:700; text-anchor:middle; dominant-baseline:middle; pointer-events:none; }
@@ -96,21 +87,9 @@
   .cup-hit:hover .inner-glow { opacity: 0.18; }
 
   /* responsive label sizing */
-  .cup-label { 
-    font-size: 1rem;
-    paint-order: stroke fill;
-    stroke: rgba(255, 255, 255, 0.9);
-    stroke-width: 4px;
-    stroke-linejoin: round;
-    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
-  }
-  .center-label { 
-    font-size: 1.25rem;
-  }
-  .cup-icon { 
-    pointer-events: none;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 8px rgba(255,255,255,0.6));
-  }
+  .cup-label { font-size: 1rem; }
+  .center-label { font-size: 1.25rem; }
+  .cup-icon { pointer-events: none; }
 
   /* Content Page Styles */
   .content-page {
@@ -125,7 +104,6 @@
     pointer-events: none;
     transition: opacity 0.5s ease;
     overflow-y: auto;
-    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -304,16 +282,6 @@
 
   /* Responsive Design */
   @media (max-width: 768px) {
-    .main-container {
-      padding: 20px 12px;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .page-header {
-      margin-bottom: 0;
-    }
-
     .content-inner {
       padding: 70px 20px 40px;
     }
@@ -366,28 +334,12 @@
   }
 
   @media (max-width: 600px){
-    .cup-label { 
-      font-size: .82rem;
-      stroke-width: 3px;
-    }
+    .cup-label { font-size: .82rem; }
     .center-label { font-size: 1rem; }
     .cup-icon { font-size: 14; }
   }
 
   @media (max-width: 480px) {
-    .main-container {
-      padding: 15px 8px;
-      gap: 12px;
-    }
-
-    .page-header {
-      margin-bottom: 0;
-    }
-
-    .wrap {
-      width: min(92vmin, 980px);
-    }
-
     .content-title {
       font-size: 1.8rem;
     }
@@ -406,7 +358,6 @@
 
     .main-title {
       font-size: 2rem;
-      margin-bottom: 5px;
     }
 
     .main-subtitle {
@@ -972,14 +923,6 @@
     innerGlow.setAttribute('class', 'inner-glow');
     innerGlow.setAttribute('fill', 'rgba(255,255,255,0.15)');
 
-    // Background for icon - semi-transparent white circle
-    const iconBg = document.createElementNS(svgNS, 'circle');
-    iconBg.setAttribute('cx', 0);
-    iconBg.setAttribute('cy', -5);
-    iconBg.setAttribute('r', '28');
-    iconBg.setAttribute('fill', 'rgba(255, 255, 255, 0.85)');
-    iconBg.setAttribute('filter', 'blur(1px)');
-
     // Create icon as SVG text element with emojis
     const iconText = document.createElementNS(svgNS, 'text');
     iconText.setAttribute('x', 0);
@@ -990,17 +933,6 @@
     iconText.setAttribute('dominant-baseline', 'middle');
     
     iconText.textContent = iconEmojis[i];
-
-    // Background for label - rounded rectangle
-    const labelBg = document.createElementNS(svgNS, 'rect');
-    const labelWidth = labels[i].length * 8 + 12; // Approximate width based on text length
-    labelBg.setAttribute('x', -labelWidth / 2);
-    labelBg.setAttribute('y', 14);
-    labelBg.setAttribute('width', labelWidth);
-    labelBg.setAttribute('height', 22);
-    labelBg.setAttribute('rx', 11);
-    labelBg.setAttribute('fill', 'rgba(255, 255, 255, 0.9)');
-    labelBg.setAttribute('filter', 'blur(0.5px)');
 
     const label = document.createElementNS(svgNS, 'text');
     label.setAttribute('class', 'cup-label');
@@ -1018,9 +950,7 @@
     g.appendChild(powder);
     g.appendChild(overlay);
     g.appendChild(innerGlow);
-    g.appendChild(iconBg);
     g.appendChild(iconText);
-    g.appendChild(labelBg);
     g.appendChild(label);
 
     g.setAttribute('filter', 'url(#softDrop)');
