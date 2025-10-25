@@ -1,10 +1,9 @@
-
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Masala Dan — Interactive Spice Box</title>
+<title>Masala Dan – Interactive Spice Box</title>
 
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -376,10 +375,72 @@
     <div class="wrap" role="img" aria-label="Masala Dabba with icons and raised rims">
       <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
         <defs>
-          <!-- Spice Texture Pattern for Family -->
-          <pattern id="spiceTextureRed" patternUnits="objectBoundingBox" width="1" height="1">
-            <image href="spice-texture-red.png" x="0" y="0" width="1000" height="1000" preserveAspectRatio="xMidYMid slice"/>
+          <!-- Spice Texture Patterns - One for each spice -->
+          <pattern id="spiceTexture0" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/family.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
           </pattern>
+          <pattern id="spiceTexture1" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/language.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+          <pattern id="spiceTexture2" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/research.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+          <pattern id="spiceTexture3" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/creative-writing.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+          <pattern id="spiceTexture4" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/summer-projects.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+          <pattern id="spiceTexture5" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/community.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+          <pattern id="spiceTexture6" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/robotics.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+          <pattern id="spiceTexture7" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/knitting.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+          <pattern id="spiceTexture8" patternUnits="objectBoundingBox" width="1" height="1">
+            <image href="images/spices/dad.jpg" x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"/>
+          </pattern>
+
+          <!-- Color Overlay Gradients for blending with textures -->
+          <radialGradient id="overlay0" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#f5cdb8" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#e0a585" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay1" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#a8c8dc" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#7ca0b8" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay2" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#dcc098" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#c09868" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay3" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#e8b8a0" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#d09070" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay4" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#b0c8d8" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#88a0b8" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay5" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#d8c0e0" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#b898c8" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay6" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#e8d890" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#d0b860" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay7" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#b8d8b0" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#90b088" stop-opacity="0.6"/>
+          </radialGradient>
+          <radialGradient id="overlay8" cx="40%" cy="35%">
+            <stop offset="0%" stop-color="#d0c090" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#b09860" stop-opacity="0.6"/>
+          </radialGradient>
 
           <!-- Outer rim gradient (polished brass outer ring) -->
           <radialGradient id="outerRim" cx="35%" cy="30%">
@@ -436,45 +497,6 @@
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
-
-          <!-- Spice colors matching reference -->
-          <!-- Family - using red spice texture -->
-          <radialGradient id="sp1" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#f5cdb8" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#e0a585" stop-opacity="0.5"/>
-          </radialGradient>
-          <radialGradient id="sp2" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#a8c8dc"/>
-            <stop offset="100%" stop-color="#7ca0b8"/>
-          </radialGradient>
-          <radialGradient id="sp3" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#dcc098"/>
-            <stop offset="100%" stop-color="#c09868"/>
-          </radialGradient>
-          <radialGradient id="sp4" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#e8b8a0"/>
-            <stop offset="100%" stop-color="#d09070"/>
-          </radialGradient>
-          <radialGradient id="sp5" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#b0c8d8"/>
-            <stop offset="100%" stop-color="#88a0b8"/>
-          </radialGradient>
-          <radialGradient id="sp6" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#d8c0e0"/>
-            <stop offset="100%" stop-color="#b898c8"/>
-          </radialGradient>
-          <radialGradient id="sp7" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#e8d890"/>
-            <stop offset="100%" stop-color="#d0b860"/>
-          </radialGradient>
-          <radialGradient id="sp8" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#b8d8b0"/>
-            <stop offset="100%" stop-color="#90b088"/>
-          </radialGradient>
-          <radialGradient id="sp9" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#d0c090"/>
-            <stop offset="100%" stop-color="#b09860"/>
-          </radialGradient>
         </defs>
 
         <circle cx="500" cy="500" r="430" fill="url(#outerRim)" stroke="rgba(0,0,0,0.06)" stroke-width="1.2"/>
@@ -510,7 +532,6 @@
   const gap = Math.max(14, r * 0.08);
   const centerR = d - r - gap;
 
-  const fills = ['sp1','sp2','sp3','sp4','sp5','sp6','sp7','sp8','sp9'];
   const labels = ['Family','Language','Research','Creative Writing','Summer Projects','Community','Robotics','Knitting','Dad'];
   
   // Using emojis for reliable rendering
@@ -884,26 +905,18 @@
     wellBase.setAttribute('fill', 'url(#bedGrad)');
     wellBase.setAttribute('opacity', '0.3');
 
-    // Layer 8: THE SPICE (centered and deep)
+    // Layer 8: THE SPICE - Using image texture
     const powder = document.createElementNS(svgNS, 'circle');
     powder.setAttribute('r', (r - 16).toFixed(2));
+    powder.setAttribute('fill', `url(#spiceTexture${i})`);
     
-    let overlay = null;
-    
-    // For Family (index 0), use texture pattern
-    if (i === 0) {
-      powder.setAttribute('fill', 'url(#spiceTextureRed)');
-      
-      // Add a color overlay for blending
-      overlay = document.createElementNS(svgNS, 'circle');
-      overlay.setAttribute('r', (r - 16).toFixed(2));
-      overlay.setAttribute('fill', 'url(#sp1)');
-      overlay.setAttribute('style', 'mix-blend-mode: multiply');
-    } else {
-      powder.setAttribute('fill', `url(#${fills[i % fills.length]})`);
-    }
+    // Layer 9: Color overlay for blending
+    const overlay = document.createElementNS(svgNS, 'circle');
+    overlay.setAttribute('r', (r - 16).toFixed(2));
+    overlay.setAttribute('fill', `url(#overlay${i})`);
+    overlay.setAttribute('style', 'mix-blend-mode: multiply');
 
-    // Layer 9: Subtle hover glow
+    // Layer 10: Subtle hover glow
     const innerGlow = document.createElementNS(svgNS, 'circle');
     innerGlow.setAttribute('r', (r - 16).toFixed(2));
     innerGlow.setAttribute('class', 'inner-glow');
@@ -934,12 +947,7 @@
     g.appendChild(wellDepth);
     g.appendChild(wellBase);
     g.appendChild(powder);
-    
-    // Add overlay if it exists (for textured spices)
-    if (overlay) {
-      g.appendChild(overlay);
-    }
-    
+    g.appendChild(overlay);
     g.appendChild(innerGlow);
     g.appendChild(iconText);
     g.appendChild(label);
