@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -87,9 +86,21 @@
   .cup-hit:hover .inner-glow { opacity: 0.18; }
 
   /* responsive label sizing */
-  .cup-label { font-size: 1rem; }
-  .center-label { font-size: 1.25rem; }
-  .cup-icon { pointer-events: none; }
+  .cup-label { 
+    font-size: 1rem;
+    paint-order: stroke fill;
+    stroke: rgba(255, 255, 255, 0.9);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+  }
+  .center-label { 
+    font-size: 1.25rem;
+  }
+  .cup-icon { 
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 0 8px rgba(255,255,255,0.6));
+  }
 
   /* Content Page Styles */
   .content-page {
@@ -334,7 +345,10 @@
   }
 
   @media (max-width: 600px){
-    .cup-label { font-size: .82rem; }
+    .cup-label { 
+      font-size: .82rem;
+      stroke-width: 3px;
+    }
     .center-label { font-size: 1rem; }
     .cup-icon { font-size: 14; }
   }
@@ -923,6 +937,14 @@
     innerGlow.setAttribute('class', 'inner-glow');
     innerGlow.setAttribute('fill', 'rgba(255,255,255,0.15)');
 
+    // Background for icon - semi-transparent white circle
+    const iconBg = document.createElementNS(svgNS, 'circle');
+    iconBg.setAttribute('cx', 0);
+    iconBg.setAttribute('cy', -5);
+    iconBg.setAttribute('r', '28');
+    iconBg.setAttribute('fill', 'rgba(255, 255, 255, 0.85)');
+    iconBg.setAttribute('filter', 'blur(1px)');
+
     // Create icon as SVG text element with emojis
     const iconText = document.createElementNS(svgNS, 'text');
     iconText.setAttribute('x', 0);
@@ -933,6 +955,17 @@
     iconText.setAttribute('dominant-baseline', 'middle');
     
     iconText.textContent = iconEmojis[i];
+
+    // Background for label - rounded rectangle
+    const labelBg = document.createElementNS(svgNS, 'rect');
+    const labelWidth = labels[i].length * 8 + 12; // Approximate width based on text length
+    labelBg.setAttribute('x', -labelWidth / 2);
+    labelBg.setAttribute('y', 14);
+    labelBg.setAttribute('width', labelWidth);
+    labelBg.setAttribute('height', 22);
+    labelBg.setAttribute('rx', 11);
+    labelBg.setAttribute('fill', 'rgba(255, 255, 255, 0.9)');
+    labelBg.setAttribute('filter', 'blur(0.5px)');
 
     const label = document.createElementNS(svgNS, 'text');
     label.setAttribute('class', 'cup-label');
@@ -950,7 +983,9 @@
     g.appendChild(powder);
     g.appendChild(overlay);
     g.appendChild(innerGlow);
+    g.appendChild(iconBg);
     g.appendChild(iconText);
+    g.appendChild(labelBg);
     g.appendChild(label);
 
     g.setAttribute('filter', 'url(#softDrop)');
