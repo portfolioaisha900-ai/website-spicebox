@@ -90,129 +90,90 @@
 
   .floating-element {
     position: absolute;
-    opacity: 0.12;
+    opacity: 0.10;
     animation: float-drift 20s ease-in-out infinite;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
 
+  /* Top left - Microscope (Science) */
   .floating-element:nth-child(1) {
-    top: 10%;
-    left: 5%;
-    font-size: 80px;
+    top: 8%;
+    left: 8%;
+    font-size: 75px;
     animation-delay: 0s;
-    animation-duration: 25s;
+    animation-duration: 28s;
   }
 
+  /* Top right - Books (Learning) */
   .floating-element:nth-child(2) {
-    top: 60%;
-    right: 8%;
-    font-size: 100px;
+    top: 10%;
+    right: 10%;
+    font-size: 80px;
     animation-delay: 5s;
     animation-duration: 30s;
   }
 
+  /* Middle left high - Chili (Culture) */
   .floating-element:nth-child(3) {
-    top: 75%;
-    left: 10%;
+    top: 30%;
+    left: 5%;
     font-size: 70px;
     animation-delay: 10s;
-    animation-duration: 28s;
-  }
-
-  .floating-element:nth-child(4) {
-    top: 25%;
-    right: 15%;
-    font-size: 90px;
-    animation-delay: 3s;
-    animation-duration: 32s;
-  }
-
-  .floating-element:nth-child(5) {
-    top: 85%;
-    right: 25%;
-    font-size: 75px;
-    animation-delay: 7s;
     animation-duration: 27s;
   }
 
-  .floating-element:nth-child(6) {
-    top: 40%;
-    left: 15%;
-    font-size: 85px;
-    animation-delay: 12s;
-    animation-duration: 29s;
+  /* Middle right high - Writing (Creative) */
+  .floating-element:nth-child(4) {
+    top: 35%;
+    right: 8%;
+    font-size: 78px;
+    animation-delay: 3s;
+    animation-duration: 31s;
   }
 
-  .floating-element:nth-child(7) {
-    top: 55%;
-    left: 80%;
-    font-size: 95px;
+  /* Middle left low - Family */
+  .floating-element:nth-child(5) {
+    top: 65%;
+    left: 7%;
+    font-size: 76px;
     animation-delay: 8s;
     animation-duration: 26s;
   }
 
-  .floating-element:nth-child(8) {
-    top: 15%;
-    right: 35%;
-    font-size: 78px;
-    animation-delay: 15s;
-    animation-duration: 31s;
-  }
-
-  .floating-element:nth-child(9) {
-    top: 80%;
-    left: 40%;
-    font-size: 88px;
-    animation-delay: 4s;
+  /* Middle right low - Knitting (Creative) */
+  .floating-element:nth-child(6) {
+    top: 68%;
+    right: 10%;
+    font-size: 74px;
+    animation-delay: 12s;
     animation-duration: 28s;
   }
 
-  .floating-element:nth-child(10) {
-    top: 35%;
-    left: 70%;
-    font-size: 82px;
-    animation-delay: 11s;
-    animation-duration: 27s;
-  }
-
-  .floating-element:nth-child(11) {
-    top: 50%;
-    left: 25%;
-    font-size: 76px;
+  /* Bottom left - Light bulb (Ideas) */
+  .floating-element:nth-child(7) {
+    top: 88%;
+    left: 12%;
+    font-size: 77px;
     animation-delay: 6s;
     animation-duration: 30s;
   }
 
-  .floating-element:nth-child(12) {
-    top: 20%;
-    left: 50%;
-    font-size: 84px;
+  /* Bottom right - Art (Creative) */
+  .floating-element:nth-child(8) {
+    top: 90%;
+    right: 15%;
+    font-size: 71px;
     animation-delay: 14s;
-    animation-duration: 29s;
+    animation-duration: 27s;
   }
 
-  .floating-element:nth-child(13) {
-    top: 70%;
-    right: 40%;
+  /* Far right middle - Laptop (Tech) */
+  .floating-element:nth-child(9) {
+    top: 50%;
+    right: 5%;
     font-size: 79px;
     animation-delay: 9s;
-    animation-duration: 28s;
-  }
-
-  .floating-element:nth-child(14) {
-    top: 45%;
-    right: 10%;
-    font-size: 86px;
-    animation-delay: 13s;
-    animation-duration: 31s;
-  }
-
-  .floating-element:nth-child(15) {
-    top: 65%;
-    left: 55%;
-    font-size: 81px;
-    animation-delay: 16s;
-    animation-duration: 27s;
+    animation-duration: 29s;
   }
 
   @keyframes float-drift {
@@ -258,7 +219,16 @@
     text-shadow: 
       2px 2px 4px rgba(0,0,0,0.1),
       0 0 20px rgba(255,255,255,0.6);
-    line-height: 1.1;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .title-text {
+    white-space: nowrap;
   }
 
   .main-subtitle {
@@ -554,7 +524,13 @@
     }
 
     .main-title {
-      font-size: 2.8rem;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      gap: 6px;
+    }
+
+    .title-text {
+      font-size: 0.9em;
     }
 
     .main-subtitle {
@@ -601,7 +577,19 @@
 
     .floating-element {
       opacity: 0.08;
+      font-size: 50px;
     }
+
+    /* Reposition for mobile to avoid center and maintain spacing */
+    .floating-element:nth-child(1) { top: 5%; left: 5%; }
+    .floating-element:nth-child(2) { top: 8%; right: 8%; }
+    .floating-element:nth-child(3) { top: 25%; left: 3%; }
+    .floating-element:nth-child(4) { top: 28%; right: 5%; }
+    .floating-element:nth-child(5) { top: 68%; left: 5%; }
+    .floating-element:nth-child(6) { top: 70%; right: 8%; }
+    .floating-element:nth-child(7) { top: 88%; left: 8%; }
+    .floating-element:nth-child(8) { top: 90%; right: 10%; }
+    .floating-element:nth-child(9) { top: 48%; right: 3%; }
   }
 
   @media (max-width: 600px){
@@ -637,7 +625,13 @@
     }
 
     .main-title {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
+      letter-spacing: 0.5px;
+      gap: 4px;
+    }
+
+    .title-text {
+      font-size: 0.85em;
     }
 
     .main-subtitle {
@@ -654,7 +648,12 @@
 
     .floating-element {
       opacity: 0.06;
-      font-size: 60%;
+      font-size: 45px;
+    }
+
+    /* Hide just a couple elements on very small screens */
+    .floating-element:nth-child(9) {
+      display: none;
     }
   }
 </style>
@@ -666,23 +665,17 @@
     <div class="floating-element">📚</div>
     <div class="floating-element">🌶️</div>
     <div class="floating-element">✍️</div>
-    <div class="floating-element">🤖</div>
     <div class="floating-element">👨‍👩‍👧‍👦</div>
     <div class="floating-element">🧶</div>
     <div class="floating-element">💡</div>
     <div class="floating-element">🎨</div>
     <div class="floating-element">💻</div>
-    <div class="floating-element">🌸</div>
-    <div class="floating-element">📖</div>
-    <div class="floating-element">🍃</div>
-    <div class="floating-element">⚙️</div>
-    <div class="floating-element">🎭</div>
   </div>
 
   <!-- Main Masala Dabba Container -->
   <div class="main-container" id="mainContainer">
     <div class="page-header">
-      <h1 class="main-title">🌶️ My Masaala Box 🌶️</h1>
+      <h1 class="main-title"><span class="title-text">🌶️ My Masaala Box 🌶️</span></h1>
       <p class="main-subtitle">Click on each spice to explore</p>
     </div>
     <div class="wrap" role="img" aria-label="Masala Dabba with icons and raised rims">
