@@ -852,6 +852,200 @@
   // Using emojis for reliable rendering
   const iconEmojis = ['👨‍👩‍👧‍👦','💬','🔬','✍️','☀️','🤝','🤖','🧶','👔'];
   
+  // Detailed research project content
+  const researchProjects = {
+    'als': {
+      title: 'ALS Prognosis',
+      subtitle: 'Predictive modeling for early ALS diagnosis through genetic clustering',
+      icon: '🧬',
+      image: 'RDPALSPoster.webp',
+      content: `
+        <h2>The Challenge</h2>
+        <p>ALS is notoriously difficult to diagnose in its early stages, with patients typically facing a delay of 10 to 16 months after symptom onset before receiving an accurate diagnosis. This delay can significantly impact treatment outcomes and quality of life.</p>
+
+        <div class="highlight-box">
+          <p><strong>Research Goal:</strong> Develop an AI-driven diagnostic platform to improve the speed and accuracy of ALS detection through genetic analysis and network clustering.</p>
+        </div>
+
+        <h2>Methodology</h2>
+        <p>Our research study presents an AI-driven diagnostic platform trained on a diverse dataset that includes public health records, gene network graphs, and generative AI-based patient profiles to address data limitations.</p>
+
+        <h3>Key Focus Areas</h3>
+        <ul>
+          <li>Comprehensive review of current ALS treatments</li>
+          <li>Analysis of genes implicated in both ALS and frontotemporal dementia (FTD): FUS, TARDBP, C9ORF72, MAPT, and GRN</li>
+          <li>Network graph generation using various clustering algorithms</li>
+          <li>K-means and MCL clustering analysis</li>
+        </ul>
+
+        <h2>Key Findings</h2>
+        
+        <h3>Distinct Disease Pathways</h3>
+        <p>K-means clustering revealed that C9ORF72 forms a distinct cluster, separate from the FUS/TARDBP group, suggesting differing ALS pathways. This finding has important implications for personalized treatment approaches.</p>
+
+        <h3>FTD Connections</h3>
+        <p>GRN and C9ORF72 are more closely associated with FTD, with:</p>
+        <ul>
+          <li><strong>GRN:</strong> Linked to lysosomal function</li>
+          <li><strong>C9ORF72:</strong> Connected to vesicle trafficking via RAB GTPases</li>
+        </ul>
+
+        <h3>Protein Misfolding Pathways</h3>
+        <p>FUS and TARDBP are closely interconnected and share pathways with SOD1, involving:</p>
+        <ul>
+          <li>Oxidative stress</li>
+          <li>Protein misfolding</li>
+          <li>RNA-binding dysfunction</li>
+        </ul>
+        <p>These insights were identified through MCL clustering analysis.</p>
+
+        <h3>Cumulative Dysfunction Theory</h3>
+        <p>TARDBP's integration into a broader RNA-binding network suggests that neurodegeneration may stem from cumulative dysfunction across multiple genes, rather than single-gene failure.</p>
+
+        <h3>MAPT's Role</h3>
+        <p>MAPT appears to connect signaling and structural modules, with its disruption affecting axonal transport and signaling—early hallmarks of ALS.</p>
+
+        <div class="highlight-box">
+          <p><strong>Impact:</strong> Our research aims to improve lives by enabling earlier diagnosis, leading to timely interventions and better patient outcomes. Early detection can mean the difference between effective treatment and rapid disease progression.</p>
+        </div>
+
+        <h2>Future Directions</h2>
+        <p>We plan to expand our dataset, refine our clustering algorithms, and develop a user-friendly diagnostic tool that can be implemented in clinical settings to assist neurologists in early ALS detection.</p>
+      `
+    },
+    'dementia': {
+      title: 'Dementia Diagnosis with AI',
+      subtitle: 'Can large language models help diagnose undetected dementia?',
+      icon: '🧠',
+      images: ['aishaDemo.webp', 'acsefsecondplace.webp'],
+      content: `
+        <h2>The Problem: A Silent Crisis</h2>
+        <p>Living alone carries serious health risks—a 39% higher risk of premature death, along with increased rates of depression, anxiety, heart disease, and dementia. This isolation hits elderly populations especially hard, with many experiencing meaningful social interaction only during infrequent healthcare visits.</p>
+
+        <div class="highlight-box">
+          <p><strong>Shocking Statistic:</strong> 59% of dementia patients in the United States are undiagnosed.</p>
+        </div>
+
+        <h3>Barriers to Diagnosis</h3>
+        <ul>
+          <li>High diagnostic costs</li>
+          <li>Limited accessibility to specialists</li>
+          <li>Stigma surrounding mental health conditions</li>
+          <li>Privacy concerns</li>
+        </ul>
+
+        <h2>The Research Question</h2>
+        <p>Could artificial intelligence, specifically large language models (LLMs), offer a solution? Can these models help identify dementia earlier, more affordably, and more accessibly than traditional methods?</p>
+
+        <h2>My Approach: Three Methods Tested</h2>
+
+        <h3>Method 1: Internal Representations (The Winner) 🏆</h3>
+        <p>Rather than treating LLMs as black boxes, I looked inside. By extracting and analyzing the internal representations—the hidden patterns LLMs learn during training—I built a targeted classifier that achieved an <strong>F1 score of 0.89</strong>, the highest performance across all methods tested.</p>
+        
+        <p><strong>Why it worked:</strong> This approach captured subtle linguistic patterns that pure text analysis might miss. The internal state of transformers contains rich information about language structure and meaning, which, when paired with specialized classifiers, significantly outperforms traditional machine learning approaches.</p>
+
+        <h3>Method 2: Prompt-Based Classification</h3>
+        <p>I tested whether LLMs could diagnose dementia through carefully crafted prompts alone. I evaluated eight different models—conversational, reasoning-focused, and open-source—to see how well they performed when simply asked to identify dementia based on text inputs.</p>
+        
+        <p><strong>Result:</strong> An F1 score of only 0.73, falling short of traditional ML methods.</p>
+        
+        <p><strong>Why the gap?</strong> Relying purely on text-based prompts overlooks subtle markers of cognitive decline that require deeper analysis. Text alone doesn't capture the full picture.</p>
+
+        <h3>Method 3: Analyzing Reasoning Models</h3>
+        <p>Digging deeper into reasoning models revealed interesting patterns:</p>
+        <ul>
+          <li><strong>Larger models performed better</strong> - suggesting that scale matters for complex diagnostic tasks</li>
+          <li><strong>More reasoning tokens actually hurt performance</strong> - indicating that overthinking may introduce errors rather than improve accuracy</li>
+        </ul>
+
+        <div class="highlight-box">
+          <p><strong>Key Insight:</strong> Multimodal data—incorporating voice tone, speech patterns, and video—could substantially improve reasoning model performance. However, data scarcity remains a major barrier.</p>
+        </div>
+
+        <h2>The Data Challenge</h2>
+        <p>Dementia research faces a fundamental problem: lack of data. Privacy concerns make it difficult to collect and share patient information, limiting what researchers can accomplish.</p>
+
+        <h3>Proposed Solution: Synthetic Data Generation</h3>
+        <p>My proposal is to fine-tune and open-source a model that mimics dementia patient behavior, generating synthetic conversational data that researchers worldwide could use. This would:</p>
+        <ul>
+          <li>Fuel AI research without compromising patient privacy</li>
+          <li>Provide training data for improved diagnostic models</li>
+          <li>Democratize access to resources that could accelerate breakthroughs</li>
+        </ul>
+
+        <h2>Key Takeaways</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Best Performance</h3>
+            <p>Internal representation-based classification achieved F1: 0.89, outperforming both traditional ML and prompt-based approaches</p>
+          </div>
+          <div class="feature-card">
+            <h3>Prompt Limitations</h3>
+            <p>Pure prompt-based methods achieved only F1: 0.73, highlighting the need for more sophisticated approaches</p>
+          </div>
+          <div class="feature-card">
+            <h3>Scale Matters</h3>
+            <p>Model size matters more than reasoning depth for this diagnostic task</p>
+          </div>
+          <div class="feature-card">
+            <h3>Future Direction</h3>
+            <p>Multimodal data (voice, video) represents a promising frontier for improving performance</p>
+          </div>
+        </div>
+
+        <h2>Why This Matters</h2>
+        <p>With 59% of dementia cases undiagnosed and barriers like cost, accessibility, and stigma preventing early detection, we need innovative solutions. AI-powered diagnostics could:</p>
+        <ul>
+          <li>Reduce costs and increase accessibility</li>
+          <li>Enable earlier intervention and better patient outcomes</li>
+          <li>Provide continuous monitoring without frequent clinic visits</li>
+          <li>Combat the loneliness epidemic by integrating health monitoring into everyday interactions</li>
+        </ul>
+
+        <div class="highlight-box">
+          <p><strong>Recognition:</strong> This research earned Second Place in the High School Category at the Alameda County Science & Engineering Fair (March 2025).</p>
+        </div>
+
+        <h2>Research Resources</h2>
+        <p>For detailed methodology, results, and technical specifications, view my complete research slides: <a href="https://aishah-acsef-2025.tiiny.site/" target="_blank" style="color: #8b5a2b; font-weight: 600;">View Research Slides</a></p>
+
+        <p>This research represents a step toward making dementia diagnosis more accessible, accurate, and actionable—potentially improving outcomes for millions of people worldwide.</p>
+      `
+    },
+    'fungi': {
+      title: 'Mycorrhizal Fungi Networks',
+      subtitle: 'Exploring underground communication and ecosystem health',
+      icon: '🌱',
+      content: `
+        <h2>Research Overview</h2>
+        <p>This research project investigates the fascinating world of mycorrhizal fungi and their crucial role in ecosystem health and plant communication.</p>
+
+        <div class="highlight-box">
+          <p><strong>Coming Soon:</strong> Detailed research content, methodology, and findings will be added here.</p>
+        </div>
+
+        <h2>Research Focus Areas</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Network Analysis</h3>
+            <p>Studying how mycorrhizal networks facilitate nutrient exchange and communication between plants.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Ecosystem Impact</h3>
+            <p>Investigating the role of fungal networks in maintaining biodiversity and ecosystem resilience.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Plant Health</h3>
+            <p>Examining how mycorrhizal associations enhance plant growth and stress resistance.</p>
+          </div>
+        </div>
+
+        <h2>Stay Tuned</h2>
+        <p>Full research details, including methodology, data analysis, and key findings, will be updated soon. This project explores the hidden networks beneath our feet that connect entire ecosystems.</p>
+      `
+    }
+  };
+  
   // Content for each section
   const content = {
     'Family': {
@@ -919,34 +1113,32 @@
     'Research': {
       subtitle: 'Curiosity in action',
       content: `
-        <h2>Research Interests</h2>
-        <p>My research explores the intersection of technology, human behavior, and social impact. I'm driven by questions that don't have easy answers.</p>
+        <h2>My Research Journey</h2>
+        <p>My research explores the intersection of artificial intelligence, healthcare, and neuroscience. I'm passionate about leveraging technology to solve real-world medical challenges and improve patient outcomes.</p>
 
-        <h2>Current Projects</h2>
         <div class="feature-grid">
-          <div class="feature-card">
-            <h3>AI Ethics</h3>
-            <p>Investigating the ethical implications of artificial intelligence in decision-making systems.</p>
+          <div class="feature-card" style="cursor: pointer;" onclick="showResearchDetail('als')">
+            <h3>🧬 ALS Prognosis</h3>
+            <p>AI-driven diagnostic platform for early ALS detection through genetic clustering and network analysis.</p>
           </div>
-          <div class="feature-card">
-            <h3>Language Processing</h3>
-            <p>Exploring how computers understand and generate human language.</p>
+          <div class="feature-card" style="cursor: pointer;" onclick="showResearchDetail('dementia')">
+            <h3>🧠 Dementia Diagnosis</h3>
+            <p>Using large language models to diagnose dementia and address the crisis of undiagnosed cases.</p>
           </div>
-          <div class="feature-card">
-            <h3>Human-Computer Interaction</h3>
-            <p>Studying how people interact with technology and how to improve these experiences.</p>
+          <div class="feature-card" style="cursor: pointer;" onclick="showResearchDetail('fungi')">
+            <h3>🌱 Mycorrhizal Fungi</h3>
+            <p>Investigating the role of mycorrhizal networks in ecosystem health and plant communication.</p>
           </div>
         </div>
-
-        <h2>Research Philosophy</h2>
-        <p>Good research starts with genuine curiosity. I believe in asking difficult questions, challenging assumptions, and being willing to follow the evidence wherever it leads.</p>
 
         <div class="highlight-box">
-          <p><strong>Methodology:</strong> I combine quantitative analysis with qualitative insights to build a complete picture of complex problems.</p>
+          <p><strong>Research Philosophy:</strong> I believe in asking difficult questions, challenging assumptions, and using cutting-edge AI to create solutions that can save lives and improve healthcare accessibility.</p>
         </div>
 
-        <h2>Publications & Papers</h2>
-        <p>My work has explored topics ranging from machine learning applications to social computing. I'm committed to making research accessible and applicable to real-world challenges.</p>
+        <h2>Impact & Recognition</h2>
+        <p>My work has been recognized at science fairs and competitions, including a Second Place award at the Alameda County Science & Engineering Fair for my dementia diagnosis research.</p>
+        
+        <p>Click on any research topic above to learn more about the methodology, findings, and impact of each project.</p>
       `
     },
     'Creative Writing': {
@@ -1356,6 +1548,85 @@
       page.classList.add('active');
     }, 100);
   }
+
+  // Function to show research detail page
+  window.showResearchDetail = function(projectKey) {
+    const project = researchProjects[projectKey];
+    if (!project) return;
+
+    const pageId = `page-research-${projectKey}`;
+    let page = document.getElementById(pageId);
+    
+    if (!page) {
+      page = document.createElement('div');
+      page.id = pageId;
+      page.className = 'content-page';
+      
+      // Build images HTML if images exist
+      let imagesHTML = '';
+      if (project.image) {
+        imagesHTML = `<img src="${project.image}" alt="${project.title}" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; margin: 30px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">`;
+      } else if (project.images) {
+        imagesHTML = project.images.map(img => 
+          `<img src="${img}" alt="${project.title}" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; margin: 30px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">`
+        ).join('');
+      }
+      
+      page.innerHTML = `
+        <div class="back-btn" onclick="hideResearchDetail('${projectKey}')">
+          <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="500" cy="500" r="430" fill="url(#outerRim)" stroke="rgba(120, 90, 50, 0.3)" stroke-width="8"/>
+            <circle cx="500" cy="500" r="380" fill="url(#bedGrad)"/>
+            <circle cx="500" cy="500" r="120" fill="url(#outerRim)" stroke="rgba(120, 90, 50, 0.3)" stroke-width="4"/>
+            <circle cx="500" cy="500" r="100" fill="url(#bedGrad)"/>
+            <text x="500" y="515" font-size="60" font-weight="700" fill="#4b2e0f" text-anchor="middle" dominant-baseline="middle">←</text>
+          </svg>
+        </div>
+        <div class="content-inner">
+          <div class="content-header">
+            <div class="content-icon" style="font-size: 4rem;">
+              ${project.icon}
+            </div>
+            <h1 class="content-title">${project.title}</h1>
+            <p class="content-subtitle">${project.subtitle}</p>
+          </div>
+          ${imagesHTML}
+          <div class="content-body">
+            ${project.content}
+          </div>
+        </div>
+      `;
+      
+      contentPages.appendChild(page);
+    }
+    
+    // Hide main Research page
+    const researchPage = document.getElementById('page-Research');
+    if (researchPage) {
+      researchPage.classList.remove('active');
+    }
+    
+    // Show detail page
+    setTimeout(() => {
+      page.classList.add('active');
+    }, 100);
+  };
+
+  // Function to hide research detail page and return to Research main
+  window.hideResearchDetail = function(projectKey) {
+    const page = document.getElementById(`page-research-${projectKey}`);
+    if (page) {
+      page.classList.remove('active');
+    }
+    
+    // Show Research main page
+    setTimeout(() => {
+      const researchPage = document.getElementById('page-Research');
+      if (researchPage) {
+        researchPage.classList.add('active');
+      }
+    }, 300);
+  };
 
   // Function to hide content page and return to main
   window.hidePage = function(section) {
